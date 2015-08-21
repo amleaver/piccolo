@@ -5,7 +5,7 @@ class CreateTransactions < ActiveRecord::Migration
       t.text :notes
       t.string :txn_type
       t.string :occurs
-      t.decimal :amount
+      t.decimal :amount, precision: 10, scale: 2
       t.references :budget, index: true
       t.timestamps null: false
     end

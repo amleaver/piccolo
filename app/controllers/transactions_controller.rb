@@ -1,10 +1,21 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy]
+  before_action :set_budget
 
   # GET /transactions
   # GET /transactions.json
   def index
     @transactions = Transaction.all
+    @total_debit = BigDecimal.new(0)
+    @total_credit = BigDecimal.new(0)
+
+    @transactions.each do |transaction|
+      if transaction.txn_type == 'Credit'
+        @total_credit += transaction.monthly_amount
+      else
+        @total_debit += transaction.monthly_amount
+      end
+    end
   end
 
   # GET /transactions/1
@@ -25,6 +36,7 @@ class TransactionsController < ApplicationController
   # POST /transactions.json
   def create
     @transaction = Transaction.new(transaction_params)
+    @transaction.budget_id = @budget.id
 
     respond_to do |format|
       if @transaction.save
@@ -65,13 +77,18 @@ class TransactionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_transaction
-      @transaction = Transaction.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_transaction
+    @transaction = Transaction.find(params[:id])
+    set_budget
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def transaction_params
-      params.require(:transaction).permit(:payee, :notes, :txn_type, :occurs, :amount)
-    end
+  def set_budget
+    @budget = Budget.find(params[:budget_id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def transaction_params
+    params.require(:transaction).permit(:payee, :notes, :txn_type, :occurs, :amount)
+  end
 end

@@ -1,8 +1,6 @@
-<p id="notice"><%= notice %></p>
+<h1>Budgets</h1>
 
-<h1>Listing Budgets</h1>
-
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Title</th>
@@ -14,9 +12,12 @@
     <% @budgets.each do |budget| %>
       <tr>
         <td><%= budget.title %></td>
-        <td><%= link_to 'Show', budget %></td>
-        <td><%= link_to 'Edit', edit_budget_path(budget) %></td>
-        <td><%= link_to 'Destroy', budget, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to 'Show', budget %>
+          <%= link_to 'Transactions', budget_transactions_path(budget_id: budget.id) %>
+          <%= link_to 'Edit', edit_budget_path(budget) %>
+          <%= link_to 'Destroy', budget, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>

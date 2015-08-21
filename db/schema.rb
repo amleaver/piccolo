@@ -31,10 +31,10 @@ ActiveRecord::Schema.define(version: 20150821153846) do
     t.text     "notes",      limit: 65535
     t.string   "txn_type",   limit: 255
     t.string   "occurs",     limit: 255
-    t.decimal  "amount",                   precision: 10
+    t.decimal  "amount",                   precision: 10, scale: 2
     t.integer  "budget_id",  limit: 4
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
   end
 
   add_index "transactions", ["budget_id"], name: "index_transactions_on_budget_id", using: :btree

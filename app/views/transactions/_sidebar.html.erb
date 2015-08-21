@@ -1,0 +1,10 @@
+<h3><%= @budget.title %> Budget</h3>
+
+<div style="padding-left:20px;">
+  <h4><%= fa_icon "arrow-up" %> Incoming</h4>
+  <p style="padding-left: 20px"><%= number_to_currency(@budget.credit_total) %></p>
+  <h4><%= fa_icon "arrow-down" %> Outgoing</h4>
+  <p style="padding-left: 20px"><%= number_to_currency(@budget.debit_total) %></p>
+  <h4><%= fa_icon "balance-scale" %> Total</h4>
+  <p style="padding-left: 20px"><%= number_to_currency(@budget.total) %></p>
+</div>

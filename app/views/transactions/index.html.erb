@@ -1,35 +1,59 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-xs-3">
+    <%= render partial: 'sidebar' %>
+  </div>
+  <div class="col-xs-9">
+    <h1>Transactions</h1>
 
-<h1>Listing Transactions</h1>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Payee</th>
-      <th>Notes</th>
-      <th>Type</th>
-      <th>Occurs</th>
-      <th>Amount</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @transactions.each do |transaction| %>
+    <table class="table">
+      <thead>
       <tr>
-        <td><%= transaction.payee %></td>
-        <td><%= transaction.notes %></td>
-        <td><%= transaction.txn_type %></td>
-        <td><%= transaction.occurs %></td>
-        <td><%= transaction.amount %></td>
-        <td><%= link_to 'Show', budget_transaction_path(id: transaction) %></td>
-        <td><%= link_to 'Edit', edit_budget_transaction_path(id: transaction) %></td>
-        <td><%= link_to 'Destroy', budget_transaction_path(id: transaction), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Payee</th>
+        <th>Incoming</th>
+        <th>Outgoing</th>
+        <th></th>
       </tr>
+      </thead>
+
+      <tbody>
+      <% @transactions.each do |transaction| %>
+          <tr>
+            <td><%= transaction.payee %></td>
+            <% if transaction.txn_type == 'Debit' %>
+                <td></td>
+            <% end %>
+            <td>
+          <span class="has-tooltip" data-toggle="tooltip" title="<%= number_to_currency transaction.amount %> <%= transaction.occurs %>">
+          <%= number_to_currency transaction.monthly_amount %>
+            </td>
+            <% if transaction.txn_type == 'Credit' %>
+                <td></td>
+            <% end %>
+            </span>
+            <td>
+              <%= link_to 'Detail', budget_transaction_path(id: transaction), class: 'btn btn-info btn-xs' %>
+              <%= link_to 'Edit', edit_budget_transaction_path(id: transaction), class: 'btn btn-default btn-xs' %>
+              <%= link_to 'Delete', budget_transaction_path(id: transaction), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+
+      <tfoot>
+      <tr>
+        <th>Total</th>
+        <th><%= number_to_currency(@total_credit) %></th>
+        <th><%= number_to_currency(@total_debit) %></th>
+        <th><%= number_to_currency(@total_debit + @total_credit) %></th>
+      </tr>
+      </tfoot>
+    </table>
+
+    <br>
+
+    <%= link_to new_budget_transaction_path, class: 'btn btn-success' do %>
+        <i class="glyphicon glyphicon-plus"></i> New Transaction
     <% end %>
-  </tbody>
-</table>
 
-<br>
-
-<%= link_to 'New Transaction', new_budget_transaction_path %>
+  </div>
+</div>
