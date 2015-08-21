@@ -1,0 +1,27 @@
+<p>
+  <strong>Payee:</strong>
+  <%= @transaction.payee %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @transaction.notes %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @transaction.txn_type %>
+</p>
+
+<p>
+  <strong>Occurs:</strong>
+  <%= @transaction.occurs %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @transaction.amount %>
+</p>
+
+<%= link_to 'Edit', edit_budget_transaction_path %> |
+<%= link_to 'Back', budget_transactions_path %>
