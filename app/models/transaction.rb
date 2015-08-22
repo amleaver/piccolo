@@ -1,5 +1,8 @@
 class Transaction < ActiveRecord::Base
   belongs_to :budget
+  belongs_to :category
+
+  # attr_accessor :category
 
   TXN_TYPES = {
     debit: 'Debit',
@@ -56,4 +59,8 @@ class Transaction < ActiveRecord::Base
     monthly_amount.round(2)
   end
   # rubocop:enable Metrics/CyclomaticComplexity
+
+  def category_name
+    category.present? ? category.title : ''
+  end
 end

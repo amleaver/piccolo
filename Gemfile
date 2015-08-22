@@ -29,6 +29,9 @@ gem 'bootstrap_form'
 # fontawesome
 gem 'font-awesome-rails'
 
+# selectize (adds tagging style input fields)
+gem "selectize-rails"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

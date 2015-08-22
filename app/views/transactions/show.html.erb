@@ -20,6 +20,11 @@
       <%= @transaction.occurs %>
     </p>
 
+    <p>
+      <strong>Category:</strong>
+      <%= @transaction.category.title %>
+    </p>
+
     <% if @transaction.notes? %>
         <p>
           <strong>Notes:</strong>

@@ -19,6 +19,7 @@ class TransactionsController < ApplicationController
   def create
     @transaction = Transaction.new(transaction_params)
     @transaction.budget_id = @budget.id
+    set_category
 
     if @transaction.save
       flash[:success] = 'Transaction was successfully created.'
@@ -30,6 +31,8 @@ class TransactionsController < ApplicationController
   end
 
   def update
+    set_category
+
     if @transaction.update(transaction_params)
       flash[:success] = 'Transaction was successfully updated.'
       redirect_to budget_transactions_path
@@ -60,5 +63,21 @@ class TransactionsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def transaction_params
     params.require(:transaction).permit(:payee, :notes, :txn_type, :occurs, :amount)
+  end
+
+  def set_category
+    category_title = params[:transaction_category]
+
+    if category_title.blank?
+      @transaction.category = nil
+      return
+    end
+
+    category = @budget.categories.where(title: category_title).first
+    if category.nil?
+      category = @budget.categories.create!(title: category_title)
+    end
+
+    @transaction.category = category
   end
 end

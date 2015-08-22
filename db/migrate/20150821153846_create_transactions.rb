@@ -7,6 +7,8 @@ class CreateTransactions < ActiveRecord::Migration
       t.string :occurs
       t.decimal :amount, precision: 10, scale: 2
       t.references :budget, index: true
+      t.references :category, index: true
+
       t.timestamps null: false
     end
 

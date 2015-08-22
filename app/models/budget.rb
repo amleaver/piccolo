@@ -1,5 +1,6 @@
 class Budget < ActiveRecord::Base
   has_many :transactions
+  has_many :categories
 
   validates :title, presence: true
 
@@ -13,5 +14,9 @@ class Budget < ActiveRecord::Base
 
   def total
     credit_total + debit_total
+  end
+
+  def category_titles
+    categories.map{|c| c.title}
   end
 end
