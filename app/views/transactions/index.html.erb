@@ -53,7 +53,7 @@
 
               <!-- Button trigger modal -->
               <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#transaction-<%= transaction.id %>-detail">
-                Detail
+                <i class="glyphicon glyphicon-info-sign"></i>
               </button>
 
               <!-- Modal -->
@@ -61,7 +61,7 @@
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h4 class="modal-title" id="transaction-<%= transaction.id %>-label"><%= transaction.payee %> Detail</h4>
+                      <h4 class="modal-title" id="transaction-<%= transaction.id %>-label"><i class="glyphicon glyphicon-info-sign"></i> <%= transaction.payee %> Detail</h4>
                     </div>
                     <div class="modal-body">
                       <p>
@@ -98,8 +98,12 @@
                 </div>
               </div>
 
-              <%= link_to 'Edit', edit_budget_transaction_path(id: transaction), class: 'btn btn-default btn-xs' %>
-              <%= link_to 'Delete', budget_transaction_path(id: transaction), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
+              <%= link_to edit_budget_transaction_path(id: transaction), class: 'btn btn-default btn-xs' do %>
+                  <i class="glyphicon glyphicon-pencil"></i>
+              <% end %>
+              <%= link_to budget_transaction_path(id: transaction), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>
+                  <i class="glyphicon glyphicon-trash"></i>
+            <% end %>
             </td>
           </tr>
       <% end %>
@@ -118,7 +122,7 @@
     <br>
 
     <%= link_to new_budget_transaction_path, class: 'btn btn-success' do %>
-        <i class="glyphicon glyphicon-plus"></i> New Transaction
+        <i class="glyphicon glyphicon-plus"></i> Add Transaction
     <% end %>
 
   </div>
