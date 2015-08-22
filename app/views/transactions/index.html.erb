@@ -31,10 +31,10 @@
       <% last_category = nil %>
       <% @transactions.each do |transaction| %>
           <% if last_category != transaction.category %>
-              <tr>
+              <tr style="background-color: #f2f2f2">
                 <th colspan="4"><%= transaction.category.title %></th>
               </tr>
-            <% last_category = transaction.category %>
+              <% last_category = transaction.category %>
           <% end %>
           <tr>
             <td><%= transaction.payee %></td>
@@ -50,7 +50,54 @@
             <% end %>
             </span>
             <td>
-              <%= link_to 'Detail', budget_transaction_path(id: transaction), class: 'btn btn-info btn-xs' %>
+
+              <!-- Button trigger modal -->
+              <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#transaction-<%= transaction.id %>-detail">
+                Detail
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="transaction-<%= transaction.id %>-detail" tabindex="-1" role="dialog" aria-labelledby="transaction-<%= transaction.id %>-label" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="transaction-<%= transaction.id %>-label"><%= transaction.payee %> Detail</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>
+                        <strong>Amount:</strong>
+                        <%= number_to_currency transaction.amount %>
+                      </p>
+
+                      <p>
+                        <strong>Type:</strong>
+                        <%= transaction.txn_type %>
+                      </p>
+
+                      <p>
+                        <strong>Occurs:</strong>
+                        <%= transaction.occurs %>
+                      </p>
+
+                      <p>
+                        <strong>Category:</strong>
+                        <%= transaction.category.title %>
+                      </p>
+
+                      <% if transaction.notes? %>
+                          <p>
+                            <strong>Notes:</strong>
+                            <%= transaction.notes %>
+                          </p>
+                      <% end %>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <%= link_to 'Edit', edit_budget_transaction_path(id: transaction), class: 'btn btn-default btn-xs' %>
               <%= link_to 'Delete', budget_transaction_path(id: transaction), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
             </td>

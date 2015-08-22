@@ -6,9 +6,6 @@ class TransactionsController < ApplicationController
     @transactions = Transaction.category_order
   end
 
-  def show
-  end
-
   def new
     @transaction = Transaction.new
   end
