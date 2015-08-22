@@ -3,7 +3,7 @@ class TransactionsController < ApplicationController
   before_action :set_budget
 
   def index
-    @transactions = Transaction.all
+    @transactions = Transaction.category_order
   end
 
   def show
@@ -67,11 +67,7 @@ class TransactionsController < ApplicationController
 
   def set_category
     category_title = params[:transaction_category]
-
-    if category_title.blank?
-      @transaction.category = nil
-      return
-    end
+    category_title = 'Uncategorised' if category_title.blank?
 
     category = @budget.categories.where(title: category_title).first
     if category.nil?

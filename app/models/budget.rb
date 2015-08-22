@@ -17,6 +17,27 @@ class Budget < ActiveRecord::Base
   end
 
   def category_titles
-    categories.map{|c| c.title}
+    categories.map(&:title)
+  end
+
+  def debit_chart_data
+    chart_data(transactions.debit)
+  end
+
+  def credit_chart_data
+    chart_data(transactions.credit)
+  end
+
+  private
+
+  def chart_data(transactions)
+    transactions.includes(:category).each_with_object({}) do |transaction, chart_data|
+      title = transaction.category.present? ? transaction.category.title : 'Other'
+      if chart_data.include?(title)
+        chart_data[title] += transaction.monthly_amount.abs
+      else
+        chart_data[title] = transaction.monthly_amount.abs
+      end
+    end
   end
 end

@@ -25,6 +25,7 @@ class Transaction < ActiveRecord::Base
 
   scope :credit, -> { where(txn_type: TXN_TYPES[:credit]) }
   scope :debit, -> { where(txn_type: TXN_TYPES[:debit]) }
+  scope :category_order, -> { joins(:category).order('categories.title') }
 
   def self.txn_types_list
     TXN_TYPES.values
