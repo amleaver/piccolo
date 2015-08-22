@@ -1,8 +1,8 @@
 <%= bootstrap_form_for(@transaction, layout: :horizontal, url: form_url) do |f| %>
     <%= f.text_field :payee %>
     <%= f.number_field :amount %>
-    <%= f.select :txn_type, Transaction::TXN_TYPES, { label: "Type" }, { class: "selectpicker" } %>
-    <%= f.select :occurs, Transaction::OCCURS, { label: "Occurs" }, { class: "selectpicker" } %>
+    <%= f.select :txn_type, Transaction::txn_types_list, { label: "Type" }, { class: "selectpicker" } %>
+    <%= f.select :occurs, Transaction::occurs_list, { label: "Occurs" }, { class: "selectpicker" } %>
     <%= f.text_area :notes %>
 
     <%= f.form_group do %>

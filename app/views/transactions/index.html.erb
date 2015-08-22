@@ -42,9 +42,9 @@
       <tfoot>
       <tr>
         <th>Total</th>
-        <th><%= number_to_currency(@total_credit) %></th>
-        <th><%= number_to_currency(@total_debit) %></th>
-        <th><%= number_to_currency(@total_debit + @total_credit) %></th>
+        <th><%= number_to_currency(@budget.credit_total) %></th>
+        <th><%= number_to_currency(@budget.debit_total) %></th>
+        <th></th>
       </tr>
       </tfoot>
     </table>

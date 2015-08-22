@@ -1,0 +1,24 @@
+# https://github.com/bbatsov/rubocop/blob/master/config/enabled.yml
+AllCops:
+  RunRailsCops: true
+  Exclude:
+    - 'vendor/bundle/**/*'
+    - 'Gemfile.lock'
+    - 'db/schema.rb'
+    - 'app/controllers/todos_controller.rb'
+    - 'app/models/todos_model.rb'
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 40
+
+Style/CaseIndentation:
+  IndentOneStep: true
+
+Documentation:
+  Enabled: false

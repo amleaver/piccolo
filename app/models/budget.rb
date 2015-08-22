@@ -4,11 +4,11 @@ class Budget < ActiveRecord::Base
   validates :title, presence: true
 
   def credit_total
-    transactions.credit.inject(BigDecimal.new(0)){|sum, txn| sum + txn.monthly_amount}
+    transactions.credit.inject(BigDecimal.new(0)) { |a, e| a + e.monthly_amount }
   end
 
   def debit_total
-    transactions.debit.inject(BigDecimal.new(0)){|sum, txn| sum + txn.monthly_amount}
+    transactions.debit.inject(BigDecimal.new(0)) { |a, e| a + e.monthly_amount }
   end
 
   def total
