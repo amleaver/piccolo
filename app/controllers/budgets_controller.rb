@@ -1,5 +1,6 @@
 class BudgetsController < ApplicationController
   before_action :set_budget, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /budgets
   # GET /budgets.json
